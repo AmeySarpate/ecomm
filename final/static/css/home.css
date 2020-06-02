@@ -1,0 +1,575 @@
+/* Add a black background color to the top navigation */
+.topnav {
+  background-color: #333;
+  overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Add an active class to highlight the current page */
+.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+/* Hide the link that should open and close the topnav on small screens */
+.topnav .icon {
+  display: none;
+}
+
+/* Dropdown container - needed to position the dropdown content */
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+/* Style the dropdown button to fit inside the topnav */
+.dropdown .dropbtn {
+  font-size: 17px;
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+/* Style the dropdown content (hidden by default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Style the links inside the dropdown */
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+/* Add a dark background on topnav links and the dropdown button on hover */
+.topnav a:hover, .dropdown:hover .dropbtn {
+  background-color: #555;
+  color: white;
+}
+
+/* Add a grey background to dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Show the dropdown menu when the user moves the mouse over the dropdown button */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* When the screen is less than 600 pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the topnav (.icon) */
+@media screen and (max-width: 600px) {
+  .topnav a:not(:first-child), .dropdown .dropbtn {
+    display: none;
+  }
+  .topnav a.icon {
+    float: right;
+    display: block;
+  }
+}
+
+/* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens (display the links vertically instead of horizontally) */
+@media screen and (max-width: 600px) {
+  .topnav.responsive {position: relative;}
+  .topnav.responsive a.icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .topnav.responsive a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+  .topnav.responsive .dropdown {float: none;}
+  .topnav.responsive .dropdown-content {position: relative;}
+  .topnav.responsive .dropdown .dropbtn {
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.card-img, .card-img-bottom, .card-img-top
+{
+  width:20%;
+}
+
+
+
+
+
+
+
+
+.left
+{
+
+  float:left;
+}
+.right
+{
+  float:right;
+}
+.back{
+
+  background: url("../images/im1.jpg") repeat-x scroll center top;
+  width: 100%;
+  height: 800px;
+  background-size:cover;
+
+
+}
+
+.blue {
+
+  background: rgba(62, 136, 255, 0.65);
+
+  width: 100%;
+
+
+    height: 800px;
+    text-align: center;
+    padding:3%;
+}
+
+.blue h1{
+
+  color:white;
+
+  font-size: 400%;
+font-family: 'Roboto-Bold';
+}
+
+@media screen and (max-width: 900px) {
+    .back
+    {
+      height: 600px;
+    }
+    .blue{
+    height: 600px;
+    }
+}
+@media screen and (max-width: 600px) {
+      .back
+      {
+        height: 400px;
+      }
+      .blue{
+      height: 400px;
+      }
+}
+.topnav {
+        background-color: white;
+        overflow: hidden;
+        margin:0;
+        padding:5% 17% 0% 17%;
+      }
+
+      /* Style the links inside the navigation bar */
+.topnav a {
+
+        display: block;
+        color: #2b2e4a;
+        text-align: center;
+        padding: 10px 17px 10px;
+        text-decoration: none;
+        font-size: 18px;
+        font-family:'TenaliRamakrishna-Regular';
+        margin:0;
+      }
+
+      /* Change the color of links on hover */
+.topnav a:hover {
+        background-color: #c9d6df  ;
+        color: black;
+      }
+
+      /* Add an active class to highlight the current page */
+.topnav a.active {
+        color:#3f72af;
+        text-decoration: underline;
+      }
+
+      /* Hide the link that should open and close the topnav on small screens */
+.topnav .icon {
+        display: none;
+      }
+      @media screen and (max-width: 600px) {
+        .topnav a:not(:first-child) {display: none;}
+        .topnav a.icon {
+          float: right;
+          display: block;
+        }
+      }
+
+      /* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens (display the links vertically instead of horizontally) */
+@media screen and (max-width: 600px) {
+        .topnav.responsive {position: relative;}
+        .topnav.responsive a.icon {
+          position: absolute;
+          right: 0;
+          top: 0;
+        }
+        .topnav.responsive a {
+          float: none;
+          display: block;
+          text-align: left;
+        }
+}
+
+.login_big
+{
+
+
+  padding:2% 18% 2% 18%;
+  display: inline-block;
+  margin:0 auto 0 auto;
+  text-align: center
+
+}
+
+/*  Login Slideshow ----------------------------------------------------------------------------------------------------------------------    */
+
+* {box-sizing:border-box}
+
+/* Slideshow container */
+.slideshow-container {
+  max-width: 1000px;
+  position: relative;
+  margin: auto;
+}
+
+/* Hide the images by default */
+.mySlides {
+  display: none;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+/* Caption text */
+.text {
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+/*Login bootstrap---------------------------------------------------------------*/
+.col-lg-7
+{
+  padding: 1% 1%;
+  background-color: #7d5a5a;
+}
+.col-lg-5
+{
+  padding: 8% 1%;
+}
+
+
+.row
+{
+  background-color: #f1d1d1;
+  border-radius: 11px 11px 11px 11px;
+}
+
+
+h5{
+  margin-left: 23%;
+  text-align: center;
+}
+/*                                                               */
+
+.active
+{
+  background-color: #b2ebf2;
+}
+
+
+
+
+
+
+
+
+/*     font adding  --------------------------------------------------------------------------------------------------------------*/
+
+
+
+@font-face {
+  font-family: 'Manrope-ExtraBold';
+    src: local('Manrope-ExtraBold'),
+         url('../fonts/Manrope-ExtraBold.ttf') format("truetype");
+}
+@font-face {
+  font-family: 'TenaliRamakrishna-Regular';
+    src: local('TenaliRamakrishna-Regular'),
+         url('../fonts/TenaliRamakrishna-Regular') format("truetype");
+}
+@font-face {
+  font-family: 'Roboto-Bold';
+    src: local('Roboto-Bold'),
+         url('../fonts/Roboto-Bold') format("truetype");
+}
+.sell
+{
+display: inline-block;
+width:33%;
+}
+
+
+
+
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+/* Dropdown button */
+.dropdown .dropbtn {
+  font-size: 16px;
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit; /* Important for vertical align on mobile phones */
+  margin: 0; /* Important for vertical align on mobile phones */
+}
+
+/* Add a red background color to navbar links on hover */
+.navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: red;
+}
+
+/* Dropdown content (hidden by default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+/* Add a grey background color to dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+.card-img, .card-img-bottom, .card-img-top {
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    width: 40%;
+}
+
+
+
+
+
+/*pricing tags----------------------------------------------------------------*/
+* {
+  box-sizing: border-box;
+}
+
+/* Create three columns of equal width */
+.columns {
+  float: left;
+  width: 33.3%;
+  padding: 8px;
+}
+
+/* Style the list */
+.price {
+  list-style-type: none;
+  border: 1px solid #eee;
+  margin: 0;
+  padding: 0;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+/* Add shadows on hover */
+.price:hover {
+  box-shadow: 0 8px 12px 0 rgba(0,0,0,0.2)
+}
+
+/* Pricing header */
+.price .header {
+  background-color: #111;
+  color: white;
+  font-size: 25px;
+}
+
+/* List items */
+.price li {
+  border-bottom: 1px solid #eee;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Grey list item */
+.price .grey {
+  background-color: #eee;
+  font-size: 20px;
+}
+
+/* The "Sign Up" button */
+.button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 10px 25px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+/* Change the width of the three columns to 100%
+(to stack horizontally on small screens) */
+@media only screen and (max-width: 600px) {
+  .columns {
+    width: 100%;
+  }
+}
+
+
+
+.sell_div
+{
+  display: inline-block;
+  background-color: #74d4c0;
+  width:40%;
+  padding:2% 3%;
+  margin-left: 15%;
+}
+
+
+
+.prev_sell_div
+{
+  
+}

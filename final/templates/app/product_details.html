@@ -1,0 +1,24 @@
+{% extends 'app/base.html' %}
+{% block body_block%}
+  <h1>Product Details</h1>
+
+
+<p> prod_name:{{product.prod_name}}</p>
+<p> prod_name:{{product.color}}</p>
+<p> prod_name:{{product.kind}}</p>
+<p> prod_name:{{product.price}}</p>
+<img src="../media/{{product.image}}" alt="images" width="20%">
+
+
+{%ifequal product.seller.user.username user.username%}
+<h5>Its one of your products ... you cant buy it</h5>
+
+{%else%}
+<form class="" action="{% url 'purchase' pk=product.id%}" method="post">
+  {% csrf_token %}
+    <input type="submit" name="" value="Add to Cart">
+</form>
+
+
+  {%endifequal%}
+{% endblock %}

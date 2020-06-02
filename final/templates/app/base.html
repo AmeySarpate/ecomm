@@ -1,0 +1,66 @@
+{% load static%}
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link rel="stylesheet" href="{% static 'css/home.css'%}">
+    </head>
+    <body>
+
+
+    <div class="topnav" id="myTopnav">
+    <a href="{% url 'index' %} " class="left {% if nbar == 'index' %}active{% endif %} ">Home</a>
+    <a href="{% url 'sell' %}" class="left {% if nbar == 'sell' %}active{% endif %}">Sell</a>
+      <a href="{% url 'buy' %}"  class="left {% if nbar == 'buy' %}active{% endif %}">Buy</a>
+    <a href="#about"  class="left">About</a>
+  {% if user.is_authenticated %}
+      <a href="{% url 'logout'%}"  class="right">Logout</a>
+    <span class='right'><h5>Welcome {{user.username}}</h5></span>
+
+
+
+    {% else %}
+    <a href="{% url 'login' %}" class="right {% if nbar == 'login' %}active{% endif %} ">Login</a>
+    {% endif %}
+
+    <a href="javascript:void(0);" class="icon left" onclick="myFunction()">
+      <i class="fa fa-bars"></i>
+    </a>
+    </div>
+
+    {% block body_block%}
+
+  {% endblock %}
+      </body>
+
+
+
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+      <!-- Latest compiled and minified CSS -->
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script>
+function myFunction() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+      x.className += " responsive";
+  } else {
+      x.className = "topnav";
+  }
+}
+</script>
+</html>

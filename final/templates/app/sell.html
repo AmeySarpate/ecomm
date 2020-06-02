@@ -1,0 +1,20 @@
+{% extends 'app/base.html'%}
+{% block body_block%}
+  <body>
+
+    <div class="sell_div">
+      <h2>Add details of the prodcut</h2>
+      <h4 style='color:red'>{{error}}</h4>
+      <form enctype="multipart/form-data" method="post">
+        {% csrf_token%}
+        {{form.as_p}}
+        <input type="submit" value="add to sale">
+      </form>
+    </div>
+  <div class="prev_sell_div">
+
+
+  </div>
+
+
+{% endblock %}
