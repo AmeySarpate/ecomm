@@ -21,18 +21,17 @@
     <a href="#about"  class="left">About</a>
   {% if user.is_authenticated %}
       <a href="{% url 'logout'%}"  class="right">Logout</a>
-    <span class='right'><h5>Welcome {{user.username}}</h5></span>
-
-
-
+    <span class='right' ><h5> Welcome {{user.username}}</h5></span>
     {% else %}
-    <a href="{% url 'login' %}" class="right {% if nbar == 'login' %}active{% endif %} ">Login</a>
+    <span class='right'><a href="{% url 'login' %}" class="{% if nbar == 'login' %}active{% endif %} ">Login</a></span>
+    <span class='right'><a href="{% url 'register' %}" class="{% if nbar == 'register' %}active{% endif %} ">SignUp</a></span>
     {% endif %}
 
     <a href="javascript:void(0);" class="icon left" onclick="myFunction()">
       <i class="fa fa-bars"></i>
     </a>
     </div>
+    <hr>
 
     {% block body_block%}
 
@@ -54,6 +53,7 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 <script>
+
 function myFunction() {
   var x = document.getElementById("myTopnav");
   if (x.className === "topnav") {
@@ -62,5 +62,6 @@ function myFunction() {
       x.className = "topnav";
   }
 }
+
 </script>
 </html>

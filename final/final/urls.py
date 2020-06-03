@@ -27,6 +27,10 @@ urlpatterns = [
     path('logout',views.user_logout,name='logout'),
     path('sell',views.sell,name='sell'),
     path('buy',views.buy,name='buy'),
+    path('<pk>/user_update',views.UserUpdateView.as_view() ,name='user_update'),
+    path('profile',views.profile,name='profile'),
+    path('edit/',views.edit_user,name='edit'),
+
     path('purchase/<int:pk>',views.purchase,name='purchase'),
     path('product/<int:pk>',views.productDetailView.as_view(),name='prodetail')
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

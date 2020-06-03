@@ -1,22 +1,28 @@
 {% extends 'app/base.html' %}
 {% block body_block%}
   <h1>Product Details</h1>
+  Are you sure to buy this product ??
+  <div class="columns">
+    <ul class="price" style='background-color:white'>
+      <li>Name: {{product.prod_name}}</li>
+      <li class="grey">Price: {{product.price}}</li>
+      <li>Kind: {{product.kind}}</li>
+      <li>Owner: {{product.seller}}</li>
+      <li>Color: {{product.color}}</li>
 
+      <li>  <img class="card-img-top"  src="../media/{{product.image}}" alt="images" width='100%' height="180px"></li>
 
-<p> prod_name:{{product.prod_name}}</p>
-<p> prod_name:{{product.color}}</p>
-<p> prod_name:{{product.kind}}</p>
-<p> prod_name:{{product.price}}</p>
-<img src="../media/{{product.image}}" alt="images" width="20%">
-
+    </ul>
+  </div>
 
 {%ifequal product.seller.user.username user.username%}
 <h5>Its one of your products ... you cant buy it</h5>
 
 {%else%}
+
 <form class="" action="{% url 'purchase' pk=product.id%}" method="post">
   {% csrf_token %}
-    <input type="submit" name="" value="Add to Cart">
+    <input type="submit" value="Add to Cart">
 </form>
 
 

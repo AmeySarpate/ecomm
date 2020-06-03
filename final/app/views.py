@@ -11,7 +11,7 @@ from django.http import HttpResponseRedirect,HttpResponse
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 def register(request):
-    registered=False
+
     user_form=forms.UserForm()
     cuto_form=forms.CustomerForm()
     if request.method=='POST':
@@ -27,11 +27,12 @@ def register(request):
 
             customer.save()
 
-            registered=True
+
+            return HttpResponseRedirect(reverse('login'))
         else:
             print("Cleaned DATA IS NOT AVILABLE")
 
-    return render(request,'app/signup.html',{'user_form':user_form,'registered':registered,'customer_form':cuto_form})
+    return render(request,'app/signup.html',{'user_form':user_form,'customer_form':cuto_form,'nbar':'register'})
 # Create your views here.
 
 
@@ -83,6 +84,11 @@ def user_login_no(request):
 
 def sell(request):
     if request.user.is_authenticated:
+        user=User.objects.get(id=request.user.id)
+        seller=models.Customer.objects.get(user=user)
+
+        prev_list=models.Product.objects.filter(seller=seller,booked=False)
+        prev_sold_list=models.Product.objects.filter(seller=seller,booked=True)
         if request.method=='POST':
             form_data=forms.SellForm(request.POST,request.FILES)
             if form_data.is_valid():
@@ -93,13 +99,14 @@ def sell(request):
 
                 product.image=request.FILES['image']
                 product.save()
-                return HttpResponse('Yeah Product is added to our list')
+                form=forms.SellForm()
+                return render(request,'app/sell.html',{'nbar':'sell','form':form,'message':'You have succesfully added the item to the sell list','prev_product':prev_list,'prev_sold_product':prev_sold_list})
             else:
                 print("FORM DATA IS NOT VALID")
-                return render(request,'app/sell.html',{'form':form,'nbar':'sell','error':'FORM DATA IS INVALID '})
+                return render(request,'app/sell.html',{'form':form,'nbar':'sell','error':'FORM DATA IS INVALID ','prev_product':prev_list,'prev_sold_product':prev_sold_list})
         else:
             form=forms.SellForm()
-            return render(request,'app/sell.html',{'form':form,'nbar':'sell'})
+            return render(request,'app/sell.html',{'form':form,'nbar':'sell','prev_product':prev_list,'prev_sold_product':prev_sold_list})
 
 
     else:
@@ -110,6 +117,11 @@ def sell(request):
 class ProductListView(ListView):
     model=models.Product
     context_object_name='product_list'
+
+class UserUpdateView(UpdateView):
+    model=User
+    fields=['first_name','last_name']
+    template_name='app/User_update_form.html'
 
 
 def buy(request):
@@ -147,14 +159,29 @@ def purchase(request,pk):
         object=models.Product.objects.get(id=pk)
         object.booked=True
         object.save()
-        print("Object has been sold----------------------------")
         user=User.objects.get(id=request.user.id)
         buyer=models.Customer.objects.get(user=user)
-        purchase_data=models.Purchase(object=object,Buyer=buyer)
+        purchase_data=models.Purchase(object=object,Buyer=buyer,date=datetime.datetime.now() )
         purchase_data.date=datetime.datetime.now()
         purchase_data.save()
 
-        print('You have succesfully purchased---------------------------------------------------------')
         return HttpResponseRedirect(reverse('buy'))
     else:
         return HttpResponseRedirect(reverse('login_param',args=['buy']))
+
+@login_required
+def profile(request):
+    user=User.objects.get(id=request.user.id)
+    print("this is user")
+    print(user)
+    customer=models.Customer.objects.get(user=user)
+    return render(request,'app/profile.html',{'customer':customer})
+def edit_user(request):
+    if request.method=='POST':
+        user=User.objects.get(id=request.user.id)
+
+        user.email=request.POST.get('email')
+        user.first_name=request.POST.get('fname')
+        user.last_name=request.POST.get('lname')
+        user.save()
+        return HttpResponseRedirect(reverse_lazy('profile'))

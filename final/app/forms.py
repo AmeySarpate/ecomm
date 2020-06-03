@@ -8,6 +8,10 @@ class UserForm(forms.ModelForm):
     class Meta():
         model=models.User
         fields=('username','email','password')
+        help_texts = {
+            'username': None,
+            'email': None,
+        }
 
 
 class CustomerForm(forms.ModelForm):
@@ -19,4 +23,4 @@ class CustomerForm(forms.ModelForm):
 class SellForm(forms.ModelForm):
     class Meta():
         model=models.Product
-        fields=('kind','color','price','image','prod_name')
+        fields=('prod_name','kind','color','price','image')

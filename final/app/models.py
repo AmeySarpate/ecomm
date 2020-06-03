@@ -29,11 +29,12 @@ class Customer(models.Model):
 
 
 class Product(models.Model):
+    prod_name=models.CharField(max_length=100)
     seller=models.ForeignKey(Customer,on_delete=models.CASCADE,related_name='sold_products',null=True)
     kind=models.ForeignKey(Kind,on_delete=models.CASCADE)
     color=models.ForeignKey(Color,on_delete=models.CASCADE)
     price=models.IntegerField()
-    prod_name=models.CharField(max_length=100,default='XYZ')
+
     image=models.ImageField(upload_to='Product_Images/')
     booked=models.BooleanField(default=False)
     def __str__(self):
@@ -42,6 +43,6 @@ class Product(models.Model):
 class Purchase(models.Model):
     object=models.ForeignKey(Product,on_delete=models.CASCADE)
     Buyer=models.ForeignKey(Customer,on_delete=models.CASCADE,related_name='bought_products')
-    date=models.DateField(auto_now_add=True)
+    date=models.DateField(auto_now_add=False)
     def __str__(self):
         return self.object.prod_name

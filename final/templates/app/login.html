@@ -2,6 +2,8 @@
 {%load static%}
   {%block body_block%}
 <div class='login_big'>
+<center><h2>{{message}}</h2></center>
+
 <div class="row">
 
 
@@ -45,7 +47,7 @@
 
     <div class="col-lg-5 col-md-5">
       {% if slug %}
-      <h2>{{message}}</h2>
+
       <form action="{%url 'login_param' slug %}" method="post">
       {% else %}
       <form action="{%url 'login'%}" method="post">
@@ -58,7 +60,14 @@
         <label for="password">password:</label>
         <input type="text" name="password" >
   <br>
-        <input type="submit"alue="Login">
+        <input type="submit" value="Login">
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <p>Don't have account yet? <a href="{%url 'register'%}">Signup</a></p>
       </form>
 
     </div>

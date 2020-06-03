@@ -11,12 +11,12 @@
   </form>
 
 -->
-<div style='background-color:#d4f3ef;height:100%;overflow:auto;'>
+<div class='sell_products_div'>
 
-<div class="">
+<div class="filter_div">
   <form method="post">
     {% csrf_token %}
-    <h5>Filters</h5>
+  
     kind:<input type="text" name="kind">
     COLOR:<input type="text" name="color">
 
@@ -33,12 +33,10 @@
     <ul class="price" style='background-color:white'>
       <li>Name: {{item.prod_name}}</li>
       <li class="grey">Price: {{item.price}}</li>
-      <li>Kind: {{item.kind}}</li>
-      <li>Owner: {{item.seller}}</li>
       <li>Color: {{item.color}}</li>
 
       <li>  <img class="card-img-top"  src="../media/{{item.image}}" alt="images" width='100%' height="180px"></li>
-      <li class="grey"><a href="{% url 'purchase' pk=item.id %}" class="button">Purchase</a></li>
+      <li class="grey"><a href="{% url 'prodetail' pk=item.id %}" class="button">Purchase</a></li>
 
     </ul>
   </div>
@@ -46,5 +44,5 @@
 
   {%endfor%}
   </div>
-  </div>
+
 {% endblock%}

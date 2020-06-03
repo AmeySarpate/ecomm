@@ -1,0 +1,68 @@
+{% extends 'app/base.html'%}
+{%block body_block%}
+  <h3>User Profile</h3>
+<div class="sell_products_div">
+<div class="sidenav">
+  <a href="#">Manage your information</a>
+  <hr class='sidenav_hr'>
+  <a href="#">Sold Products</a>
+  <hr class='sidenav_hr'>
+  <a href="#">Purchased Product</a>
+  <hr class='sidenav_hr'>
+  <a href="#">Contact</a>
+</div>
+
+<!-- Page content -->
+<div class="main">
+    <h3 id='prof1'>User Information :</h3>
+    <h4>{{messge}}</h4>
+    <div class="editable_user">
+      <p id='email'>email: {{user.email}}</p>
+      <p id='first_name' >First Name: {{user.first_name}} </p>
+      <p id='last_name'>First Name: {{user.last_name}} </p>
+
+
+      <p>Last Login: {{user.last_login}} </p>
+      <p>Date Joined: {{user.date_joined}} </p>
+    
+      <button type="button" onclick="edit_profile()">Edit</button><span id='cancel_button'></span>
+  </div>
+</div>
+</div>
+
+
+  <script>
+    function edit_profile()
+    {
+      var email=document.getElementById("email").innerHTML;
+      var first_name=document.getElementById("first_name").innerHTML;
+      var last_name=document.getElementById("last_name").innerHTML;
+      var form='<form action="{% url "edit" %}" method="post">';
+      var form1='{% csrf_token %}<input type="submit"value="Update"></form>';
+
+    //  document.getElementById('cancel_button').innerHTML='<button onclick="cancel_edit_profile()">Cancel</button>';
+    //  document.getElementById("email").innerHTML=form+'Email: <input type="text" name="email" value='+email+'>';
+    //  document.getElementById("first_name").innerHTML='First_name: <input type="text" name="fname" value='+first_name+'>';
+    //  document.getElementById("last_name").innerHTML='Last_name:<input type="text" name="lname" value='+last_name+'>';
+    //  document.getElementById("submit_edit").innerHTML=form1;
+  document.getElementsByClassName('editable_user')[0].innerHTML='<form action="{% url "edit" %}" method="post">Email: <input type="text" name="email">First_name:<input type="text" name="fname" >Last_name:<input type="text" name="lname" >{% csrf_token %}<input type="submit"  value="Update"></form>';
+
+    }
+    function cancel_edit_profile()
+    {
+      var email=document.getElementById("email").innerHTML;
+      var first_name=document.getElementById("first_name").innerHTML;
+      var last_name=document.getElementById("last_name").innerHTML;
+
+
+
+      document.getElementById("email").innerHTML='Email: {{user.email}}';
+      document.getElementById("first_name").innerHTML='First_name: {{user.first_name}}';
+      document.getElementById("last_name").innerHTML='Last_name: {{user.last_name}}';
+        document.getElementById('cancel_button').innerHTML='';
+    }
+
+  </script>
+
+
+{%endblock%}
