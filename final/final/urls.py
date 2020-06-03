@@ -27,10 +27,14 @@ urlpatterns = [
     path('logout',views.user_logout,name='logout'),
     path('sell',views.sell,name='sell'),
     path('buy',views.buy,name='buy'),
+    path('buy/<int:pk>',views.buyColor,name='buyColor'),
+    path('buy/<slug:kind>',views.buyKind,name='buyKind'),
+    path('buy/<slug:kind>/<int:pk>',views.buyColorKind,name='buyColorKind'),
     path('<pk>/user_update',views.UserUpdateView.as_view() ,name='user_update'),
+    path('<pk>/delete_product',views.ProductDeleteView.as_view(),name='delete_product'),
     path('profile',views.profile,name='profile'),
     path('edit/',views.edit_user,name='edit'),
-
+    path('edit_contact',views.edit_contact,name='edit_contact'),
     path('purchase/<int:pk>',views.purchase,name='purchase'),
     path('product/<int:pk>',views.productDetailView.as_view(),name='prodetail')
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

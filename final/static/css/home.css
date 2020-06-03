@@ -701,7 +701,7 @@ width:33%;
 
 
 
-/*Side bar for profile------------------------------------------------------------------------*/
+/*Side bar for profile-------------------------------------------------------------------------------------------------------*/
 /* The sidebar menu */
 .sidenav {
   height: 100%; /* Full-height: remove this if you want "auto" height */
@@ -751,4 +751,69 @@ width:33%;
   margin:0 auto 0 auto;
   border-top: 1px solid #eae7d9;
 
+}
+
+
+
+.profile_product_list
+{
+  overflow: auto;
+}
+.profile_product_list .prev_columns
+{
+width: 33.3%;
+display:inline-block;
+}
+body
+{
+  overflow: auto;
+}
+
+
+.sidenav_sell {
+  height: 100%; /* Full-height: remove this if you want "auto" height */
+  width: 180px; /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  background-color: #142850; /* Black */
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 20px;
+  padding-left:4px;
+  color:white;
+}
+
+/* The navigation menu links */
+.sidenav_sell a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #dbdbdb;
+  display: block;
+}
+.sidenav_sell h4
+{
+  color:white;
+}
+/* When you mouse over the navigation links, change their color */
+.sidenav_sell a:hover {
+  color: white;
+}
+
+
+@media screen and (max-height: 450px) {
+  .sidenav_sell {padding-top: 15px;}
+  .sidenav_sell a {font-size: 18px;}
+}
+.sidenav_sell_hr
+{
+  width:75%;
+  margin:0 auto 3% auto;
+  border-top: 1px solid #eae7d9;
+
+}
+.sidenav_sell label
+{
+  color:white;
 }

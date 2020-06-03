@@ -128,17 +128,22 @@ def buy(request):
     if request.method=='POST':
         c=request.POST.get('color')
         k=request.POST.get('kind')
-        if len(k)==0  and len(k)==0 :
+        if len(k)==0  and len(c)==0 :
             product_list=models.Product.objects.filter(booked=False)
+        #    return reverse function based on your search and latest arrival
         elif len(c)==0:
             product_list=models.Product.objects.filter(kind=models.Kind.objects.get(category=k.title()),booked=False)
-        elif len(c)==0 and len(k)==0:
+
+        elif len(k)==0:
             product_list=models.Product.objects.filter(color=models.Color.objects.get(color_name=c.title()),booked=False)
         else:
             product_list=models.Product.objects.filter(kind=models.Kind.objects.get(category=k),color=models.Color.objects.get(color_name=c.title()),booked=False)
     else:
         product_list=models.Product.objects.filter(booked=False)
-    return render(request,'app/sell_products.html',{'product_list':product_list,'nbar':'buy'})
+    product_list=product_list.exclude(seller=models.Customer.objects.get(user=User.objects.get(id=request.user.id)))
+    kind=models.Kind.objects.all()
+    color=models.Color.objects.all()
+    return render(request,'app/sell_products.html',{'product_list':product_list,'nbar':'buy','kind':kind,'color':color})
 
 @login_required
 def user_logout(request):
@@ -159,13 +164,14 @@ def purchase(request,pk):
         object=models.Product.objects.get(id=pk)
         object.booked=True
         object.save()
+        object.save(update_fields=['booked'])
         user=User.objects.get(id=request.user.id)
         buyer=models.Customer.objects.get(user=user)
         purchase_data=models.Purchase(object=object,Buyer=buyer,date=datetime.datetime.now() )
         purchase_data.date=datetime.datetime.now()
         purchase_data.save()
 
-        return HttpResponseRedirect(reverse('buy'))
+        return HttpResponseRedirect(reverse_lazy('buy'))
     else:
         return HttpResponseRedirect(reverse('login_param',args=['buy']))
 
@@ -174,8 +180,21 @@ def profile(request):
     user=User.objects.get(id=request.user.id)
     print("this is user")
     print(user)
+    customer_form=forms.CustomerForm()
     customer=models.Customer.objects.get(user=user)
-    return render(request,'app/profile.html',{'customer':customer})
+    prev_sold_list=models.Product.objects.filter(seller=customer,booked=True)
+    prev_list=models.Product.objects.filter(seller=customer,booked=False)
+    purchase_list=models.Purchase.objects.filter(Buyer=customer)
+    bought_id_list=[]
+    for item in purchase_list:
+        print(item)
+        print('------------------------------')
+        bought_id_list.append(item.object.id)
+
+    bought_list=models.Product.objects.filter(id__in=bought_id_list)
+    return render(request,'app/profile.html',{'customer':customer,'prev_sold_products':prev_sold_list,'prev_products':prev_list,'bought_products':bought_list,'customer_form':customer_form})
+
+
 def edit_user(request):
     if request.method=='POST':
         user=User.objects.get(id=request.user.id)
@@ -185,3 +204,34 @@ def edit_user(request):
         user.last_name=request.POST.get('lname')
         user.save()
         return HttpResponseRedirect(reverse_lazy('profile'))
+
+
+class ProductDeleteView(DeleteView):
+    model=models.Product
+    success_url=reverse_lazy('profile')
+    template_name='app/product_details.html'
+    def get(self, request, *args, **kwargs):
+        product=models.Product.objects.get(pk=kwargs['pk'])
+        print(kwargs['pk'])
+        context = {'message': 'Are you sure you want to delete??','product':product}
+        return render(request, "app/product_details.html", context=context)
+def edit_contact(request):
+    if request.method=='POST':
+        user=User.objects.get(id=request.user.id)
+        customer=models.Customer.get(user=user)
+
+        customer.address=request.POST.get('address')
+        customer.last_name=request.POST.get('city')
+        customer.save()
+        return HttpResponseRedirect(reverse_lazy('profile'))
+
+
+def buyColor(request):
+    return render(request,'app/index.html');
+
+def buyKind(request):
+    return render(request,'app/index.html')
+
+
+def buyColorKind(request): 
+    return render(request,'app/index.html')

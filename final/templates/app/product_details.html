@@ -1,7 +1,7 @@
 {% extends 'app/base.html' %}
 {% block body_block%}
   <h1>Product Details</h1>
-  Are you sure to buy this product ??
+
   <div class="columns">
     <ul class="price" style='background-color:white'>
       <li>Name: {{product.prod_name}}</li>
@@ -17,14 +17,24 @@
 
 {%ifequal product.seller.user.username user.username%}
 <h5>Its one of your products ... you cant buy it</h5>
+<p>Do you want to ramove this product</p>
+<a href="{% url 'delete_product' pk=product.id%}">Remove</a>
+{% if message %}
+<form method="post">{% csrf_token %}
+    {% csrf_token %}
+  {{message}}
+    <input type="submit" value="Confirm">
+</form>
+{%endif%}
+
 
 {%else%}
-
+  Are you sure to buy this product ??
 <form class="" action="{% url 'purchase' pk=product.id%}" method="post">
   {% csrf_token %}
     <input type="submit" value="Add to Cart">
 </form>
 
 
-  {%endifequal%}
+{%endifequal%}
 {% endblock %}

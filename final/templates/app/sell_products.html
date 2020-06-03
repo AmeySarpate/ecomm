@@ -11,21 +11,48 @@
   </form>
 
 -->
-<div class='sell_products_div'>
-
-<div class="filter_div">
+<div class="sidenav_sell">
+  <h4>Filters:</h4>
+  <hr class='sidenav_sell_hr'>
   <form method="post">
     {% csrf_token %}
-  
-    kind:<input type="text" name="kind">
-    COLOR:<input type="text" name="color">
+    <label for="kind">Kind:</label>
+        <select id="kind" name="kind">
+          <option value="" selected></option>
+        {% for item in kind%}
 
+        <option value="{{item.category}}">{{item.category}}</option>
+        {%endfor%}
+        </select>
+    <label for="color">color</label>
+        <select id="color" name="color">
+          <option value="" selected></option>
+        {% for item in color%}
+        <option value="{{item.color_name}}">{{item.color_name}}</option>
+        {%endfor%}
+      </select>
+  <br>
     <input type="submit" value="Search">
-  </form>
+    </form>
+<br>
+    <h4>Sort by:</h4>
+    <form method="post">
+      {% csrf_token %}
+      <input type="radio" id="price" name="price" value="Price1">
+      <label for="male">Price High to Low</label><br>
+      <input type="radio" id="price" name="price" value="Price2">
+      <label for="female">Price Low to High</label><br>
+      <input type="radio" id="date" name="date" value="Date1">
+      <label for="male">Date-Latest</label><br>
+      <input type="radio" id="price" name="date" value="Date2">
+      <label for="female">Date-Old</label><br>
+      <input type="submit" value="Sort">
+      </form>
+
 </div>
-<br>
-<br>
-<br>
+<div class='sell_products_div'>
+
+
 
   {% for item in product_list %}
 
@@ -34,7 +61,7 @@
       <li>Name: {{item.prod_name}}</li>
       <li class="grey">Price: {{item.price}}</li>
       <li>Color: {{item.color}}</li>
-
+      <li>Owner:{{item.seller}}</li>
       <li>  <img class="card-img-top"  src="../media/{{item.image}}" alt="images" width='100%' height="180px"></li>
       <li class="grey"><a href="{% url 'prodetail' pk=item.id %}" class="button">Purchase</a></li>
 
