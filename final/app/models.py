@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+import datetime
 # Create your models here.
 #Only in some specific city this facility is available#############################
 class City(models.Model):
@@ -22,6 +23,7 @@ class Color(models.Model):
 # Important Models ###############################################################
 class Customer(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE)
+    phone=models.IntegerField(default=9999999999)
     address=models.CharField(max_length=250)
     city=models.ForeignKey(City,on_delete=models.CASCADE)
     def __str__(self):
@@ -34,7 +36,7 @@ class Product(models.Model):
     kind=models.ForeignKey(Kind,on_delete=models.CASCADE)
     color=models.ForeignKey(Color,on_delete=models.CASCADE)
     price=models.IntegerField()
-
+    updated_on=models.DateField(auto_now_add=False,default=datetime.datetime.now())
     image=models.ImageField(upload_to='Product_Images/')
     booked=models.BooleanField(default=False)
     def __str__(self):

@@ -96,7 +96,7 @@ def sell(request):
 
                 user=models.Customer.objects.filter(user=request.user)
                 product.seller=list(user)[0]
-
+                product.updated_on=datetime.datetime.now()
                 product.image=request.FILES['image']
                 product.save()
                 form=forms.SellForm()
@@ -113,11 +113,6 @@ def sell(request):
         return HttpResponseRedirect(reverse('login_param',args=['sell']))
 
 
-
-class ProductListView(ListView):
-    model=models.Product
-    context_object_name='product_list'
-
 class UserUpdateView(UpdateView):
     model=User
     fields=['first_name','last_name']
@@ -128,16 +123,37 @@ def buy(request):
     if request.method=='POST':
         c=request.POST.get('color')
         k=request.POST.get('kind')
-        if len(k)==0  and len(c)==0 :
-            product_list=models.Product.objects.filter(booked=False)
-        #    return reverse function based on your search and latest arrival
-        elif len(c)==0:
-            product_list=models.Product.objects.filter(kind=models.Kind.objects.get(category=k.title()),booked=False)
+        print(c)
+        print(type(c))
+        print(k)
+        print(type(k))
 
-        elif len(k)==0:
-            product_list=models.Product.objects.filter(color=models.Color.objects.get(color_name=c.title()),booked=False)
-        else:
-            product_list=models.Product.objects.filter(kind=models.Kind.objects.get(category=k),color=models.Color.objects.get(color_name=c.title()),booked=False)
+        sort=request.POST.get('price-date')
+        print(sort)
+        product_list=models.Product.objects.filter(booked=False)
+        if sort=='Price1':
+            print('-------------------------------------inside price1')
+            product_list=models.Product.objects.filter(booked=False).order_by('-price')
+        elif sort=='Price2':
+            print('---------------------------------------------inside price2')
+            product_list=models.Product.objects.filter(booked=False).order_by('price')
+        elif sort=='Date1':
+            product_list=models.Product.objects.filter(booked=False).order_by('-updated_on')
+        elif sort=='Date2':
+            product_list=models.Product.objects.filter(booked=False).order_by('updated_on')
+
+        if k is not None:
+            if len(k)==0 and len(c)==0 :
+                product_list=models.Product.objects.filter(booked=False)
+        #    return reverse function based on your search and latest arrival
+            elif len(c)==0:
+                print('In the len c==0 and buykind is called')
+                return HttpResponseRedirect(reverse_lazy('buyKind', args=[k]))
+            elif len(k)==0:
+                print('In the len k==0 and buyColor is called')
+                return HttpResponseRedirect(reverse_lazy('buyColor', args=[c]))
+            else :
+                product_list=models.Product.objects.filter(kind=models.Kind.objects.get(category=k),color=models.Color.objects.get(color_name=c.title()),booked=False)
     else:
         product_list=models.Product.objects.filter(booked=False)
     product_list=product_list.exclude(seller=models.Customer.objects.get(user=User.objects.get(id=request.user.id)))
@@ -226,12 +242,49 @@ def edit_contact(request):
         return HttpResponseRedirect(reverse_lazy('profile'))
 
 
-def buyColor(request):
-    return render(request,'app/index.html');
-
-def buyKind(request):
-    return render(request,'app/index.html')
+def buyColor(request,color):
 
 
-def buyColorKind(request): 
+    product_list=models.Product.objects.filter(color=models.Color.objects.get(color_name=color),booked=False)
+    product_list=product_list.exclude(seller=models.Customer.objects.get(user=User.objects.get(id=request.user.id)))
+    kind=models.Kind.objects.all()
+    col=models.Color.objects.all()
+    if request.method=='POST':
+
+        sort=request.POST.get('price-date')
+        if sort=='price1':
+            product_list=product_list.order_by('-price')
+        elif sort=='price2':
+            product_list=product_list.order_by('price')
+        elif sort=='Date1':
+            product_list=models.Product.objects.filter(booked=False).order_by('-updated_on')
+        elif sort=='Date2':
+            product_list=models.Product.objects.filter(booked=False).order_by('updated_on')
+    return render(request,'app/sell_products.html',{'product_list':product_list,'nbar':'buy','kind':kind,'color':col,'message':'You searched for '+color+': ','diff_buy':'yes'});
+
+def buyKind(request,kind):
+    product_list=models.Product.objects.filter(kind=models.Kind.objects.get(category=kind),booked=False)
+
+    knd=models.Kind.objects.all()
+    col=models.Color.objects.all()
+    if request.method=='POST':
+        print('------------------------------------------------------request is POST')
+        sort=request.POST.get('price-date')
+        print(sort)
+        if sort=='Price1':
+            print('-------------------------------------inside price1')
+            product_list=models.Product.objects.filter(kind=models.Kind.objects.get(category=kind),booked=False).order_by('-price')
+        elif sort=='Price2':
+            print('---------------------------------------------inside price2')
+            product_list=models.Product.objects.filter(kind=models.Kind.objects.get(category=kind),booked=False).order_by('price')
+        elif sort=='Date1':
+            product_list=models.Product.objects.filter(booked=False).order_by('-updated_on')
+        elif sort=='Date2':
+            product_list=models.Product.objects.filter(booked=False).order_by('updated_on')
+    product_list=product_list.exclude(seller=models.Customer.objects.get(user=User.objects.get(id=request.user.id)))
+    return render(request,'app/sell_products.html',{'product_list':product_list,'nbar':'buy','kind':knd,'color':col,'message':'You searched for '+kind+': ','diff_buy':'yes'});
+
+
+def buyColorKind(request):
+
     return render(request,'app/index.html')

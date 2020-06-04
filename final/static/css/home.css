@@ -1,3 +1,7 @@
+body{
+  overflow-x: hidden; 
+}
+
 /* Add a black background color to the top navigation */
 .topnav {
   background-color: #333;
@@ -135,9 +139,9 @@ hr{
   background-color: #ececec;
   background-color: white;
   height:100%;
-  overflow:auto;
+overflow: auto;
   padding:1% 5% 2% 5%;
-  margin: 1% auto 2% auto;
+  margin: 1% 4% 2% 180px;
   width:75%;
 }
 
@@ -525,7 +529,13 @@ width:33%;
   width: 33.3%;
   padding: 8px;
 }
+@media only screen and (min_width:900px)
+{
+  .columns{
 
+    width:50%
+  }
+}
 /* Style the list */
 .price {
   list-style-type: none;
@@ -574,12 +584,19 @@ width:33%;
 
 /* Change the width of the three columns to 100%
 (to stack horizontally on small screens) */
+
+
+
+@media only screen and (max-width: 900px) {
+  .columns {
+    width: 50%;
+  }
+}
 @media only screen and (max-width: 600px) {
   .columns {
     width: 100%;
   }
 }
-
 
 
 .sell_div
@@ -766,7 +783,7 @@ display:inline-block;
 }
 body
 {
-  overflow: auto;
+
 }
 
 

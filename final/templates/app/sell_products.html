@@ -14,7 +14,7 @@
 <div class="sidenav_sell">
   <h4>Filters:</h4>
   <hr class='sidenav_sell_hr'>
-  <form method="post">
+  <form method="post" action="{% url 'buy'%}">
     {% csrf_token %}
     <label for="kind">Kind:</label>
         <select id="kind" name="kind">
@@ -38,13 +38,13 @@
     <h4>Sort by:</h4>
     <form method="post">
       {% csrf_token %}
-      <input type="radio" id="price" name="price" value="Price1">
+      <input type="radio" id="price" name="price-date" value="Price1">
       <label for="male">Price High to Low</label><br>
-      <input type="radio" id="price" name="price" value="Price2">
+      <input type="radio" id="price" name="price-date" value="Price2">
       <label for="female">Price Low to High</label><br>
-      <input type="radio" id="date" name="date" value="Date1">
+      <input type="radio" id="date" name="price-date" value="Date1">
       <label for="male">Date-Latest</label><br>
-      <input type="radio" id="price" name="date" value="Date2">
+      <input type="radio" id="price" name="price-date" value="Date2">
       <label for="female">Date-Old</label><br>
       <input type="submit" value="Sort">
       </form>
@@ -52,7 +52,8 @@
 </div>
 <div class='sell_products_div'>
 
-
+<h3>{{message}} </h3>
+  {% if product_list%}
 
   {% for item in product_list %}
 
@@ -61,8 +62,13 @@
       <li>Name: {{item.prod_name}}</li>
       <li class="grey">Price: {{item.price}}</li>
       <li>Color: {{item.color}}</li>
-      <li>Owner:{{item.seller}}</li>
-      <li>  <img class="card-img-top"  src="../media/{{item.image}}" alt="images" width='100%' height="180px"></li>
+      <li>Owner: {{item.seller}}</li>
+      <li>Date: {{item.updated_on}}</li>
+      {% if diff_buy%}
+      <li>  <img class="card-img-top"  src="../../media/{{item.image}}" alt="images" width='100%' height="180px"></li>
+      {% else%}
+        <li>  <img class="card-img-top"  src="../media/{{item.image}}" alt="images" width='100%' height="180px"></li>
+      {% endif %}
       <li class="grey"><a href="{% url 'prodetail' pk=item.id %}" class="button">Purchase</a></li>
 
     </ul>
@@ -70,6 +76,9 @@
 
 
   {%endfor%}
+  {%else%}
+    <h4 style='color:gray'>NO PRODUCT OF YOUR MATCH</h4>
   </div>
+  {%endif%}
 
 {% endblock%}

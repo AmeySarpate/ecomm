@@ -17,7 +17,7 @@ class UserForm(forms.ModelForm):
 class CustomerForm(forms.ModelForm):
     class Meta():
         model=models.Customer
-        fields=('city','address',)
+        fields=('phone','city','address',)
 
 
 class SellForm(forms.ModelForm):
