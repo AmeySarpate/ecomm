@@ -24,3 +24,9 @@ class SellForm(forms.ModelForm):
     class Meta():
         model=models.Product
         fields=('prod_name','kind','color','price','image')
+
+
+class ProductUpdateForm(forms.ModelForm):
+    class Meta():
+        model=models.Product
+        fields=('prod_name','price')

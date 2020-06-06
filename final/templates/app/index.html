@@ -1,10 +1,100 @@
 {% extends 'app/base.html'%}
+{% load static %}
+
   {% block body_block%}
-    <div class='back' >
-      <div class="blue">
-           <h1>Want to sell old stuff ?</h1>
+<div id="index-main-div">
 
 
-      </div>
-    </div>
+<!--
+<img class="mySlides w3-animate-fading slideimage" src="{% static 'images/shoe.jpg'%}" style="width:100%">
+  <img class="mySlides w3-animate-fading slideimage" src="{% static 'images/chair2.jpg'%}" style="width:100%">
+  <img class="mySlides w3-animate-fading slideimage" src="{% static 'images/furniture.jpg'%}" style="width:100%">
+  <img class="mySlides w3-animate-fading slideimage" src="{% static 'images/music.jpg'%}" style="width:100%">
+  <img class="mySlides w3-animate-fading slideimage" src="{% static 'images/tv1.jpg'%}" style="width:100%">
+</div>
+-->
+<div class="w3-display-container-wrapper profile-div">
+
+
+<div class="w3-content w3-display-container " id='slider'>
+
+<img class="mySlides w3-animate-fading slideimage" src="{% static 'images/shoe.jpg'%}" style='display:block' >
+  <img class="mySlides w3-animate-fading slideimage" src="{% static 'images/furniture.jpg'%}">
+  <img class="mySlides w3-animate-fading slideimage" src="{% static 'images/music.jpg'%}" >
+  <img class="mySlides w3-animate-fading slideimage" src="{% static 'images/tv1.jpg'%}" >
+    <img class="mySlides w3-animate-fading slideimage" src="{% static 'images/chair2.jpg'%}" >
+</div>
+</div>
+<div class="index-middle-div">
+  <div class="index-middle-info1-div">
+    <h1 style='margin-top:0;'>Get the stuff you wanted in low price</h3>
+    <p>"Sed ut perspiciatis unde omnis iste natus error sit voluptnatus atis et quasi architecto beatae vitae dicta sunt explicabo tatem quia voluptas ut fugit, sed quia consequuntur magni dolore.olupsit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ration.
+  </div>
+  <div class="index-middle-info2-div">
+    <h1 style='margin-top:0;'>Get stuff as good as new</h3>
+    <p>" qui in ea voluptate iciatis unde omnis iste  Nemo enim ipsam volupsit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius prehenderit ?"</p>
+  </div>
+  <div class="">
+
+  </div>
+</div>
+<div class="index-sell-buy-div" >
+  <div class="sell-div" onmouseover="text_shad1()" onmouseout="normal1()">
+
+  </div>
+  <div class="buy-div"onmouseover="text_shad2()" onmouseout="normal2()" >
+
+  </div>
+    <center><h3 id='sell'onclick="location.href = '/sell';"  >SELL</h3></center>
+
+
+    <center><h3 id='buy' onclick="location.href = '/buy';" >BUY</h3></center>
+
+</div>
+<script>
+var myIndex = 0;
+carousel();
+function carousel() {
+
+
+  var i;
+  var x = document.getElementsByClassName("mySlides");
+
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";
+
+  }
+  myIndex++;
+  if (myIndex > x.length) {myIndex = 1}
+  x[myIndex-1].style.display='block';
+
+
+
+  setTimeout(carousel, 7500);
+}
+
+  function text_shad2(){
+  document.getElementById('sell').classList.add("text_shadow");
+    document.getElementById('sell').style.color="white";
+
+  }
+  function normal2(){
+      document.getElementById('sell').classList.remove("text_shadow");
+      document.getElementById('sell').style.color="red";
+  }
+
+  function text_shad1(){
+  document.getElementById('buy').classList.add("text_shadow");
+  document.getElementById('buy').style.color="white";
+  }
+  function normal1(){
+      document.getElementById('buy').classList.remove("text_shadow");
+      document.getElementById('buy').style.color="red";
+  }
+
+
+</script>
+
+</div>
+
 {% endblock %}

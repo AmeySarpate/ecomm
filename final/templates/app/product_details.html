@@ -2,39 +2,62 @@
 {% block body_block%}
   <h1>Product Details</h1>
 
-  <div class="columns">
-    <ul class="price" style='background-color:white'>
-      <li>Name: {{product.prod_name}}</li>
-      <li class="grey">Price: {{product.price}}</li>
-      <li>Kind: {{product.kind}}</li>
-      <li>Owner: {{product.seller}}</li>
-      <li>Color: {{product.color}}</li>
-
-      <li>  <img class="card-img-top"  src="../media/{{product.image}}" alt="images" width='100%' height="180px"></li>
-
-    </ul>
-  </div>
-
-{%ifequal product.seller.user.username user.username%}
-<h5>Its one of your products ... you cant buy it</h5>
-<p>Do you want to ramove this product</p>
-<a href="{% url 'delete_product' pk=product.id%}">Remove</a>
-{% if message %}
-<form method="post">{% csrf_token %}
-    {% csrf_token %}
-  {{message}}
-    <input type="submit" value="Confirm">
-</form>
-{%endif%}
 
 
-{%else%}
-  Are you sure to buy this product ??
-<form class="" action="{% url 'purchase' pk=product.id%}" method="post">
-  {% csrf_token %}
-    <input type="submit" value="Add to Cart">
-</form>
+
+<div class="product_details_user">
+  {% ifequal product.seller.user.username user.username %}
+
+  <h5>Its one of your products ... you cant buy it</h5>
+
+    <div class="columns">
+      <ul class="price" style='background-color:white'>
+        <li>Name: {{product.prod_name}}</li>
+        <li class="grey">Price: {{product.price}}</li>
+        <li>Kind: {{product.kind}}</li>
+        <li>Owner: {{product.seller}}</li>
+        <li>Color: {{product.color}}</li>
+
+        <li>  <img class="card-img-top"  src="../media/{{product.image}}" alt="images" width='100%' height="180px"></li>
+
+      </ul>
+    </div>
+    <div class="product_details_user_options">
+      <br>
+      <br>
+      <p>Do you want to remove this product</p>
+      <a href="{% url 'delete_product' pk=product.id%}">Remove</a>
+      {% if message %}
+
+      <form method="post">{% csrf_token %}
+          {% csrf_token %}
+        {{message}}
+          <input type="submit" value="Confirm">
+      </form>
+      {%endif%}
+      {% if message2 %}
+      <h4>{{message2}}</h4>
+      <form  method="post">
+        {{form.as_p}}
+        {% csrf_token%}
+        <input type="submit"  value="Update">
+      </form>
+      {% endif %}
+      {%else%}
+        Are you sure to buy this product ??
+      <form class="" action="{% url 'purchase' pk=product.id%}" method="post">
+        {% csrf_token %}
+          <input type="submit" value="Add to Cart">
+      </form>
+
+    </div>
 
 
-{%endifequal%}
+  {%endifequal%}
+
+
+</div>
+
+
+
 {% endblock %}

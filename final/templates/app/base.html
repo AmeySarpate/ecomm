@@ -5,63 +5,76 @@
   <head>
     <meta charset="utf-8">
     <title></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
       <link rel="stylesheet" href="{% static 'css/home.css'%}">
     </head>
     <body>
 
 
-    <div class="topnav" id="myTopnav">
-    <a href="{% url 'index' %} " class="left {% if nbar == 'index' %}active{% endif %} ">Home</a>
-    <a href="{% url 'sell' %}" class="left {% if nbar == 'sell' %}active{% endif %}">Sell</a>
+    <div class="topnav" id="myTopnav" >
+
+      <a href="{% url 'index' %} " class="left {% if nbar == 'index' %}active{% endif %} " id='home'>Home</a>
+      <a href="{% url 'sell' %}" class="left {% if nbar == 'sell' %}active{% endif %}">Sell</a>
       <a href="{% url 'buy' %}"  class="left {% if nbar == 'buy' %}active{% endif %}">Buy</a>
-    <a href="#about"  class="left">About</a>
+
   {% if user.is_authenticated %}
       <a href="{% url 'logout'%}"  class="right">Logout</a>
-    <span class='right' ><h5> Welcome {{user.username}}</h5></span>
-    {% else %}
-    <span class='right'><a href="{% url 'login' %}" class="{% if nbar == 'login' %}active{% endif %} ">Login</a></span>
-    <span class='right'><a href="{% url 'register' %}" class="{% if nbar == 'register' %}active{% endif %} ">SignUp</a></span>
-    {% endif %}
-
-    <a href="javascript:void(0);" class="icon left" onclick="myFunction()">
-      <i class="fa fa-bars"></i>
-    </a>
+      <a> Welcome {{user.username}}</a>
+  {% else %}
+      <a href="{% url 'login' %}" class="{% if nbar == 'login' %}active{% endif %} ">Login</a>
+      <a href="{% url 'register' %}" class="{% if nbar == 'register' %}active{% endif %} ">SignUp</a>
+  {% endif %}
+  <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+     <i class="fa fa-bars"></i>
+   </a>
     </div>
-    <hr>
+
 
     {% block body_block%}
 
-  {% endblock %}
+    {% endblock %}
       </body>
 
 
+  <script>
+window.onscroll = function() {scrollFunction()};
 
-
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-      <!-- Latest compiled and minified CSS -->
-
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-<!-- Popper JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-<script>
-
-function myFunction() {
-  var x = document.getElementById("myTopnav");
-  if (x.className === "topnav") {
-      x.className += " responsive";
+function scrollFunction() {
+  if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+    document.getElementById("myTopnav").style.padding = "10px 5px";
+    document.getElementById('index-main-div').style.marginTop='70px';
+  //  document.getElementById("logo").style.fontSize = "25px";
   } else {
-      x.className = "topnav";
+    document.getElementById("myTopnav").style.padding = "100px 25px 0 25px";
+      document.getElementById('index-main-div').style.marginTop='161px';
+  //  document.getElementById("logo").style.fontSize = "35px";
   }
 }
 
-</script>
+
+
+  function myFunction() {
+    var x = document.getElementById("myTopnav");
+    var home=document.getElementById('home');
+    if (x.className === "topnav") {
+      x.className += " responsive";
+      document.getElementById("home").style.marginTop = "50px";
+
+    } else {
+      x.className = "topnav";
+      document.getElementById("home").style.marginTop = "0px";
+    }
+
+  
+
+
+
+  }
+  </script>
+
+
+
 </html>

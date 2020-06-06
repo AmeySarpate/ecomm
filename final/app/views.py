@@ -153,10 +153,13 @@ def buy(request):
                 print('In the len k==0 and buyColor is called')
                 return HttpResponseRedirect(reverse_lazy('buyColor', args=[c]))
             else :
-                product_list=models.Product.objects.filter(kind=models.Kind.objects.get(category=k),color=models.Color.objects.get(color_name=c.title()),booked=False)
+                return HttpResponseRedirect(reverse_lazy('buyKindColor',args=[c,k]))
     else:
         product_list=models.Product.objects.filter(booked=False)
-    product_list=product_list.exclude(seller=models.Customer.objects.get(user=User.objects.get(id=request.user.id)))
+    if request.user.is_authenticated:
+        product_list=product_list.exclude(seller=models.Customer.objects.get(user=User.objects.get(id=request.user.id)))
+    else:
+        product_list=models.Product.objects.all()
     kind=models.Kind.objects.all()
     color=models.Color.objects.all()
     return render(request,'app/sell_products.html',{'product_list':product_list,'nbar':'buy','kind':kind,'color':color})
@@ -231,6 +234,9 @@ class ProductDeleteView(DeleteView):
         print(kwargs['pk'])
         context = {'message': 'Are you sure you want to delete??','product':product}
         return render(request, "app/product_details.html", context=context)
+
+
+
 def edit_contact(request):
     if request.method=='POST':
         user=User.objects.get(id=request.user.id)
@@ -285,6 +291,28 @@ def buyKind(request,kind):
     return render(request,'app/sell_products.html',{'product_list':product_list,'nbar':'buy','kind':knd,'color':col,'message':'You searched for '+kind+': ','diff_buy':'yes'});
 
 
-def buyColorKind(request):
+def buyKindColor(request,kind,color):
+    product_list=models.Product.objects.filter(kind=models.Kind.objects.get(category=kind),booked=False,color=models.Color.objects.get(color_name=color))
+    product_list=product_list.exclude(seller=models.Customer.objects.get(user=User.objects.get(id=request.user.id)))
+    knd=models.Kind.objects.all()
+    col=models.Color.objects.all()
+    return render(request,'app/sell_products.html',{'product_list':product_list,'nbar':'buy','kind':knd,'color':col,'message':'You searched for '+kind+' and color:  '+color,'diff_buy':'yes'});
 
-    return render(request,'app/index.html')
+
+
+def ProductUpdateView(request,pk):
+    if request.method=='POST':
+        form=forms.ProductUpdateForm(request.POST)
+        item=models.Product.objects.get(id=pk)
+        if form.is_valid():
+
+            item.prod_name=form.cleaned_data['prod_name']
+            item.price=form.cleaned_data['price']
+            item.updated_on=datetime.datetime.now()
+            item.save()
+            return HttpResponseRedirect(reverse_lazy('profile'))
+    form=forms.ProductUpdateForm()
+    product=models.Product.objects.get(pk=pk)
+    context = {'message2': 'Fill the update form','product':product,'form':form}
+
+    return render(request, "app/product_details.html", context=context)

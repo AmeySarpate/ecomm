@@ -17,7 +17,7 @@
 <br>
     <hr>
   <h1>Your Previous unsold products:</h1>
-
+  {% if prev_product%}
     {% for item in prev_product %}
 
     <div class="prev_columns">
@@ -33,11 +33,15 @@
       </ul>
     </div>
     {% endfor %}
-
+{%else%}
+<br>
+  <h4 style='color:gray'>No products here</h3>
+    <br>
+{%endif%}
   </div>
   <hr>
 <h1>Your sold products:</h1>
-
+{% if prev_sold_product %}
   {% for item in prev_sold_product %}
 
   <div class="prev_columns">
@@ -52,7 +56,11 @@
     </ul>
   </div>
   {% endfor %}
-
+{% else %}
+<br>
+<h4 style='color:gray'>No products here</h4>
+<br>
+{% endif %}
 </div>
 
 
