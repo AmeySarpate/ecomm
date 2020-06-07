@@ -31,7 +31,7 @@ class Customer(models.Model):
 
 
 class Product(models.Model):
-    prod_name=models.CharField(max_length=100)
+    prod_name=models.CharField(max_length=100,unique=True)
     seller=models.ForeignKey(Customer,on_delete=models.CASCADE,related_name='sold_products',null=True)
     kind=models.ForeignKey(Kind,on_delete=models.CASCADE)
     color=models.ForeignKey(Color,on_delete=models.CASCADE)
@@ -48,3 +48,8 @@ class Purchase(models.Model):
     date=models.DateField(auto_now_add=False)
     def __str__(self):
         return self.object.prod_name
+
+
+class History(models.Model):
+    user=models.ForeignKey(Customer,on_delete=models.CASCADE)
+    

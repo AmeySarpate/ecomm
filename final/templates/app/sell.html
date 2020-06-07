@@ -1,12 +1,12 @@
 {% extends 'app/base.html'%}
 {% block body_block%}
 
-<div class="sell_products_div">
+<div class="sell_item_div" >
 
-  <center style='color:green'>{{message}}</center>
-    <div class="sell_div">
-      <h4>Add details of the prodcut</h4>
-      <h4 style='color:red'>{{error}}</h4>
+  <center >{{message}}</center>
+    <div class="sell_form_div">
+      <h2>Add details of the prodcut</h2>
+      <h4 style='color:orange'>{{error}}</h4>
       <form enctype="multipart/form-data" method="post">
         {% csrf_token%}
         {{form.as_p}}
@@ -16,21 +16,23 @@
   <div class="prev_sell_div">
 <br>
     <hr>
-  <h1>Your Previous unsold products:</h1>
+  <h1 style='position:relative;top:10px;'>Your Previous unsold products:</h1>
   {% if prev_product%}
     {% for item in prev_product %}
 
-    <div class="prev_columns">
-      <ul class="prev_price" style='background-color:white'>
-        <li>Name: {{item.prod_name}}</li>
-        <li class="grey">Price: {{item.price}}</li>
-        <li>Kind: {{item.kind}}</li>
-        <li>Owner: {{item.seller}}</li>
-        <li>Color: {{item.color}}</li>
+    <div class="my_price_tag" >
+      <p class="price" >Rs. {{item.price}}</p>
+      {% if diff_buy%}
+      <img class="price-tag-image"  src="../../media/{{item.image}}" alt="images" width='100%' height="180px">
+      {% else%}
+      <img class="price-tag-image"  src="../media/{{item.image}}" alt="images" width='100%' height="180px">
+      {% endif %}
+      <br>
+      <h3>{{item.prod_name}}</h3>  <p class='date'>{{item.updated_on}}</p><br>
 
-        <li>  <img class="card-img-top prev_price_img"  src="../media/{{item.image}}" alt="images" width='100%' height="180px"></li>
-        <li><a href="#">Remove</a></li>
-      </ul>
+      <p style='display:inline-block'>{{item.color}}</p><br>
+
+
     </div>
     {% endfor %}
 {%else%}
@@ -44,16 +46,19 @@
 {% if prev_sold_product %}
   {% for item in prev_sold_product %}
 
-  <div class="prev_columns">
-    <ul class="prev_price" style='background-color:white'>
-      <li>Name: {{item.prod_name}}</li>
-      <li class="grey">Price: {{item.price}}</li>
-      <li>Kind: {{item.kind}}</li>
-      <li>Owner: {{item.seller}}</li>
-      <li>Color: {{item.color}}</li>
+  <div class="my_price_tag" >
+    <p class="price" >Rs. {{item.price}}</p>
+    {% if diff_buy%}
+    <img class="price-tag-image"  src="../../media/{{item.image}}" alt="images" width='100%' height="180px">
+    {% else%}
+    <img class="price-tag-image"  src="../media/{{item.image}}" alt="images" width='100%' height="180px">
+    {% endif %}
+    <br>
+    <h3>{{item.prod_name}}</h3>  <p class='date'>{{item.updated_on}}</p><br>
 
-      <li>  <img class="card-img-top prev_price_img"  src="../media/{{item.image}}" alt="images" width='100%' height="180px"></li>
-    </ul>
+    <p style='display:inline-block'>{{item.color}}</p><br>
+
+
   </div>
   {% endfor %}
 {% else %}
@@ -63,5 +68,17 @@
 {% endif %}
 </div>
 
+<script type="text/javascript">
+  window.onscroll = function() {scrollFunction()};
 
+  function scrollFunction() {
+    if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+      document.getElementById("myTopnav").style.padding = "10px 5px";
+
+    } else {
+      document.getElementById("myTopnav").style.padding = "100px 25px 0 25px";
+
+    }
+  }
+</script>
 {% endblock %}

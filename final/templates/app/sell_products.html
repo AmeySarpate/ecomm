@@ -1,19 +1,9 @@
 {% extends 'app/base.html' %}
 {% block body_block %}
-
-<!--
-  <h1>List page of Sell products</h1>
-  <form  method="post">
-    Filterl: <input type="text" name="filter">
-    orderBy:<input type='text' name='order'>
-    <input type="submit" value="Search">
-
-  </form>
-
--->
-<div class="sidenav_sell">
-  <h4>Filters:</h4>
-  <hr class='sidenav_sell_hr'>
+<div id="myNav" class="overlay" >
+<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+<div class="overlay-content">
+  <h1>Filters:</h1>
   <form method="post" action="{% url 'buy'%}">
     {% csrf_token %}
     <label for="kind">Kind:</label>
@@ -31,11 +21,11 @@
         <option value="{{item.color_name}}">{{item.color_name}}</option>
         {%endfor%}
       </select>
-  <br>
+<br>
     <input type="submit" value="Search">
     </form>
-<br>
-    <h4>Sort by:</h4>
+
+    <h1>Sort by:</h1>
     <form method="post">
       {% csrf_token %}
       <input type="radio" id="price" name="price-date" value="Price1">
@@ -50,35 +40,80 @@
       </form>
 
 </div>
-<div class='sell_products_div'>
+</div>
 
-<h3>{{message}} </h3>
-  {% if product_list%}
 
-  {% for item in product_list %}
 
-  <div class="columns">
-    <ul class="price" style='background-color:white'>
-      <li>Name: {{item.prod_name}}</li>
-      <li class="grey">Price: {{item.price}}</li>
-      <li>Color: {{item.color}}</li>
-      <li>Owner: {{item.seller}}</li>
-      <li>Date: {{item.updated_on}}</li>
+
+<div class="sell_products_main_div" style='margin-top:160px;'>
+  <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open search bar</span>
+
+
+  <h3>{{message}} </h3>
+  <div class="my_price_tag_wrapper" style='padding:1%;'>
+    {% if product_list%}
+
+    {% for item in product_list %}
+
+
+    <div class="my_price_tag" >
+      <p class="price" >Rs. {{item.price}}</p>
       {% if diff_buy%}
-      <li>  <img class="card-img-top"  src="../../media/{{item.image}}" alt="images" width='100%' height="180px"></li>
+      <img class="price-tag-image"  src="../../media/{{item.image}}" alt="images" width='100%' height="180px">
       {% else%}
-        <li>  <img class="card-img-top"  src="../media/{{item.image}}" alt="images" width='100%' height="180px"></li>
+      <img class="price-tag-image"  src="../media/{{item.image}}" alt="images" width='100%' height="180px">
       {% endif %}
-      <li class="grey"><a href="{% url 'prodetail' pk=item.id %}" class="button">Purchase</a></li>
+      <br>
+      <h3>{{item.prod_name}}</h3>  <p class='date'>{{item.updated_on}}</p><br>
 
-    </ul>
+      <p style='display:inline-block'>{{item.color}}</p><br>
+      <button class='button'><a href="{% url 'prodetail' pk=item.id %}" class="button">Purchase</a></button>
+
+
+    </div>
+
+
+    {%endfor%}
+    {%else%}
+      <h4 style='color:gray'>NO PRODUCT OF YOUR MATCH</h4>
+
+    {%endif%}
+</div>
+
   </div>
 
 
-  {%endfor%}
-  {%else%}
-    <h4 style='color:gray'>NO PRODUCT OF YOUR MATCH</h4>
-  </div>
-  {%endif%}
+
+
+
+
+
+  <script type="text/javascript">
+
+
+  window.onscroll = function() {scrollFunction()};
+
+  function scrollFunction() {
+    if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+        document.getElementById("myTopnav").style.padding = "10px 5px";
+
+        document.getElementsByClassName('overlay')[0].style.marginTop='60px';
+      //  document.getElementById("logo").style.fontSize = "25px";
+      } else {
+        document.getElementById("myTopnav").style.padding = "100px 25px 0 25px";
+        document.getElementsByClassName('overlay')[0].style.marginTop='140px';
+
+          document.getElementsByClassName('sidenav_sell')[0].style.top='161px';
+      //  document.getElementById("logo").style.fontSize = "35px";
+      }
+    }
+    function openNav() {
+      document.getElementById("myNav").style.width = "100%";
+    }
+
+    function closeNav() {
+      document.getElementById("myNav").style.width = "0%";
+    }
+  </script>
 
 {% endblock%}

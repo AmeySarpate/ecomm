@@ -39,10 +39,10 @@
   </div>
 </div>
 <div class="index-sell-buy-div" >
-  <div class="sell-div" onmouseover="text_shad1()" onmouseout="normal1()">
+  <div class="sell-div" onmouseover="text_shad1()" onclick="location.href = '/buy';" onmouseout="normal1()">
 
   </div>
-  <div class="buy-div"onmouseover="text_shad2()" onmouseout="normal2()" >
+  <div class="buy-div"onmouseover="text_shad2()" onclick="location.href = '/sell';"onmouseout="normal2()" >
 
   </div>
     <center><h3 id='sell'onclick="location.href = '/sell';"  >SELL</h3></center>
@@ -52,6 +52,26 @@
 
 </div>
 <script>
+
+  window.onscroll = function() {scrollFunction()};
+
+  function scrollFunction() {
+    if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+      document.getElementById("myTopnav").style.padding = "10px 5px";
+      document.getElementById('index-main-div').style.marginTop='70px';
+
+    //  document.getElementById("logo").style.fontSize = "25px";
+    } else {
+      document.getElementById("myTopnav").style.padding = "100px 25px 0 25px";
+        document.getElementById('index-main-div').style.marginTop='161px';
+
+    //  document.getElementById("logo").style.fontSize = "35px";
+    }
+  }
+
+
+
+
 var myIndex = 0;
 carousel();
 function carousel() {

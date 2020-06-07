@@ -1,10 +1,11 @@
 {% extends 'app/base.html'%}
 {%block body_block%}
+<div class="signup_div">
   {% if registered %}
     <h1>You have succesfully created the account</h1>
 
   {% else %}
-  <div class="signup_div">
+  <div class="signup_form_div">
     <h3>Sign Up Form</h3>
     <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
@@ -15,5 +16,7 @@
   </div>
 
   {% endif %}
+</div>
+
 
 {%endblock%}

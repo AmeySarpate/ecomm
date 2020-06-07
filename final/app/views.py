@@ -102,8 +102,9 @@ def sell(request):
                 form=forms.SellForm()
                 return render(request,'app/sell.html',{'nbar':'sell','form':form,'message':'You have succesfully added the item to the sell list','prev_product':prev_list,'prev_sold_product':prev_sold_list})
             else:
-                print("FORM DATA IS NOT VALID")
-                return render(request,'app/sell.html',{'form':form,'nbar':'sell','error':'FORM DATA IS INVALID ','prev_product':prev_list,'prev_sold_product':prev_sold_list})
+                print("Multiple submission are not allowed")
+                form=forms.SellForm()
+                return render(request,'app/sell.html',{'form':form,'nbar':'sell','error':'Multiple submission are not allowed ','prev_product':prev_list,'prev_sold_product':prev_sold_list})
         else:
             form=forms.SellForm()
             return render(request,'app/sell.html',{'form':form,'nbar':'sell','prev_product':prev_list,'prev_sold_product':prev_sold_list})

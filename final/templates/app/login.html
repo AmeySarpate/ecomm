@@ -1,51 +1,12 @@
 {% extends 'app/base.html'%}
 {%load static%}
   {%block body_block%}
-<div class='login_big'>
+<div class='login_big' >
 <center><h2>{{message}}</h2></center>
 
-<div class="row">
 
+    <div class="login_form_div">
 
-
-      <div class="col-lg-7 col-md-7">
-        <!-- Slideshow container -->
-            <div class="slideshow-container">
-
-      <!-- Full-width images with number and caption text -->
-              <div class="mySlides fade">
-                <div class="numbertext">1 / 3</div>
-              <img src="{%static 'images/im1.jpg'%}" style="width:100%">
-              <div class="text">Caption Text</div>
-              </div>
-
-            <div class="mySlides fade">
-                <div class="numbertext">2 / 3</div>
-            <img src="{%static 'images/im4.jpg'%}" style="width:100%">
-                <div class="text">Caption Two</div>
-                </div>
-
-                <div class="mySlides fade">
-                    <div class="numbertext">2 / 3</div>
-                <img src="{%static 'images/im3.jpg'%}" style="width:100%">
-                    <div class="text">Caption Two</div>
-                    </div>
-
-
-
-    </div>
-    <br>
-
-    <!-- The dots/circles -->
-    <div style="text-align:center">
-      <span class="dot" onclick="currentSlide(1)"></span>
-      <span class="dot" onclick="currentSlide(2)"></span>
-      <span class="dot" onclick="currentSlide(3)"></span>
-    </div>
-
-    </div>
-
-    <div class="col-lg-5 col-md-5">
       {% if slug %}
 
       <form action="{%url 'login_param' slug %}" method="post">
@@ -59,36 +20,36 @@
 
         <label for="password">password:</label>
         <input type="text" name="password" >
-  <br>
+        <br>
         <input type="submit" value="Login">
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
 
+        <br>
+        <br>
         <p>Don't have account yet? <a href="{%url 'register'%}">Signup</a></p>
       </form>
 
+
     </div>
-</div>
+
 </div>
 
 <script type="text/javascript">
-var slideIndex = 0;
-showSlides();
 
-function showSlides() {
-    var i;
-    var slides = document.getElementsByClassName("mySlides");
-    for (i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
-      }
-    slideIndex++;
-    if (slideIndex > slides.length) {slideIndex = 1}
-    slides[slideIndex-1].style.display = "block";
-    setTimeout(showSlides, 4000); // Change image every 2 seconds
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+    document.getElementById("myTopnav").style.padding = "10px 5px";
+
+  //  document.getElementById("logo").style.fontSize = "25px";
+  } else {
+    document.getElementById("myTopnav").style.padding = "100px 25px 0 25px";
+
+  //  document.getElementById("logo").style.fontSize = "35px";
+  }
 }
+
+
 </script>
 
 
