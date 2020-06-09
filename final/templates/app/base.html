@@ -22,7 +22,7 @@
 
   {% if user.is_authenticated %}
       <a href="{% url 'logout'%}"  class="right">Logout</a>
-      <a> Welcome {{user.username}}</a>
+      <a href="{% url 'profile' %}"> Welcome {{user.username}}</a>
   {% else %}
       <a href="{% url 'login' %}" class="{% if nbar == 'login' %}active{% endif %} ">Login</a>
       <a href="{% url 'register' %}" class="{% if nbar == 'register' %}active{% endif %} ">SignUp</a>
@@ -53,7 +53,7 @@
       <div class="footer_div">
          <p>Read our cookies policy:</p>
          <p>We use cookies for better user interaction:</p>
-      
+
 
       </div>
 
